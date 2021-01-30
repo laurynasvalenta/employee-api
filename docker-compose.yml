@@ -11,6 +11,7 @@ services:
 
   php:
     build: ./env/php
+    container_name: employee-api-php
     volumes:
       - './app:/home/project/src'
     environment:
