@@ -1,0 +1,23 @@
+version: '2.4'
+services:
+  nginx:
+    image: nginx:1.19.5-alpine
+    volumes:
+      - ./env/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - php
+
+  php:
+    build: ./env/php
+    volumes:
+      - './app:/home/project/src'
+    environment:
+      ENABLE_PHP_MODULES: 'mysqlnd pdo pdo_mysql pdo_sqlite curl json intl mbstring gd xml zip ctype exif pdo_sqlite ftp tokenizer dom simplexml apcu xmlwriter fileinfo bcmath iconv xdebug posix xmlreader soap imap ssh2 phar'
+
+  db:
+    image: mysql:8.0.22
+    environment:
+      MYSQL_ROOT_USER: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
