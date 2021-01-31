@@ -14,6 +14,7 @@ services:
     container_name: employee-api-php
     volumes:
       - './app:/home/project/src'
+      - './package:/home/project/package'
     environment:
       ENABLE_PHP_MODULES: 'mysqlnd pdo pdo_mysql pdo_sqlite curl json intl mbstring gd xml zip ctype exif pdo_sqlite ftp tokenizer dom simplexml apcu xmlwriter fileinfo bcmath iconv xdebug posix xmlreader soap imap ssh2 phar'
 
