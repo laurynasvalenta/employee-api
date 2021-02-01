@@ -28,7 +28,7 @@ class DtoToEntityConverterTest extends TestCase
     private const VALUE_ADDRESS_ID = 'test-test';
     private const BOSS_ID = 'boss-id';
     private const VALUE_ROLE_NAME = 'CEO';
-    const VALUE_ROLE_ID = 'id';
+    private const VALUE_ROLE_ID = 'id';
 
     /**
      * @var DtoToEntityConverterInterface
@@ -68,15 +68,6 @@ class DtoToEntityConverterTest extends TestCase
     public function emptyDtoIsConverted(): void
     {
         $expectedEmployeeEntity = new EmployeeEntity();
-        $expectedEmployeeEntity->setFirstname('');
-        $expectedEmployeeEntity->setLastname('');
-        $expectedEmployeeEntity->setBirthdate(new DateTime());
-        $expectedEmployeeEntity->setEmploymentDate(new DateTime());
-        $expectedEmployeeEntity->setFirstname('');
-        $expectedEmployeeEntity->setFirstname('');
-        $expectedEmployeeEntity->setHomeAddress(new Address());
-        $expectedEmployeeEntity->setRole(new Role());
-
         $employeeDto = new EmployeeDto();
         $employeeDto->setBirthdate(clone $expectedEmployeeEntity->getBirthdate());
         $employeeDto->setEmploymentDate(clone $expectedEmployeeEntity->getEmploymentDate());
