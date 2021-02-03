@@ -41,6 +41,9 @@ class DtoToEntityConverter implements DtoToEntityConverterInterface
         $employeeEntity->setBirthdate(clone ($employeeDto->getBirthdate() ?? new DateTime()));
         $employeeEntity->setEmploymentDate(clone ($employeeDto->getEmploymentDate() ?? new DateTime()));
 
+        $employeeEntity->getBirthdate()->setTime(0, 0, 0);
+        $employeeEntity->getEmploymentDate()->setTime(0, 0, 0);
+
         if ($employeeDto->getBossId() !== null) {
             $employeeEntity->setBoss($this->employeeRepository->findEmployeeById($employeeDto->getBossId()));
         }

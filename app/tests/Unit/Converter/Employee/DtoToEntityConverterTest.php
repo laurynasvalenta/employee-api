@@ -69,8 +69,8 @@ class DtoToEntityConverterTest extends TestCase
     {
         $expectedEmployeeEntity = new EmployeeEntity();
         $employeeDto = new EmployeeDto();
-        $employeeDto->setBirthdate(clone $expectedEmployeeEntity->getBirthdate());
-        $employeeDto->setEmploymentDate(clone $expectedEmployeeEntity->getEmploymentDate());
+        $employeeDto->setBirthdate(clone $expectedEmployeeEntity->getBirthdate()->setTime(0, 0, 0));
+        $employeeDto->setEmploymentDate(clone $expectedEmployeeEntity->getEmploymentDate()->setTime(0, 0, 0));
         $employeeEntity = new EmployeeEntity();
 
         $this->converter->convertToEntity($employeeDto, $employeeEntity);
