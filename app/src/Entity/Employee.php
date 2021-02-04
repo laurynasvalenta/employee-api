@@ -69,7 +69,7 @@ class Employee
     /**
      * @var Role
      *
-     * @ORM\ManyToOne(targetEntity=Role::class)
+     * @ORM\ManyToOne(targetEntity=Role::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $role;

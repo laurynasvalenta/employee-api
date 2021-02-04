@@ -24,4 +24,24 @@ class EmployeeList
     {
         $this->employees[] = $employee;
     }
+
+    /**
+     * @param Employee[] $employees
+     */
+    public function setEmployees(array $employees): void
+    {
+        $this->employees = $employees;
+    }
+
+    /**
+     * @return Employee|null
+     */
+    public function getFirst(): ?Employee
+    {
+        if (isset($this->employees[0])) {
+            return $this->employees[0];
+        }
+
+        return null;
+    }
 }
