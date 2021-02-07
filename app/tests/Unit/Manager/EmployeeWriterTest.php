@@ -6,7 +6,6 @@ use App\Converter\Employee\DtoToEntityConverterInterface;
 use App\Converter\Employee\EntityToDtoConverterInterface;
 use App\Entity\Employee;
 use App\Exception\ValidationException;
-use App\Factory\EmployeeEntityFactoryInterface;
 use App\Manager\EmployeeWriter;
 use Doctrine\ORM\EntityManagerInterface;
 use Package\EmployeeDto\Employee as EmployeeDto;
@@ -42,11 +41,6 @@ class EmployeeWriterTest extends TestCase
     private $entityManager;
 
     /**
-     * @var EmployeeEntityFactoryInterface|MockObject
-     */
-    private $entityFactory;
-
-    /**
      * @var EmployeeWriter
      */
     private $writer;
@@ -67,16 +61,12 @@ class EmployeeWriterTest extends TestCase
         $this->entityManager = $this->getMockBuilder(EntityManagerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->entityFactory = $this->getMockBuilder(EmployeeEntityFactoryInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->writer = new EmployeeWriter(
             $this->validator,
             $this->dtoConverter,
             $this->entityConverter,
-            $this->entityManager,
-            $this->entityFactory
+            $this->entityManager
         );
     }
 
@@ -92,7 +82,7 @@ class EmployeeWriterTest extends TestCase
             ->with($dto)
             ->willReturn(new ConstraintViolationList());
 
-        $this->writer->createEmployee($dto);
+        $this->writer->persistEmployee($dto, new Employee());
     }
 
     /**
@@ -119,7 +109,7 @@ class EmployeeWriterTest extends TestCase
         $this->entityManager->expects($this->never())
             ->method('flush');
 
-        $this->writer->createEmployee($dto);
+        $this->writer->persistEmployee($dto, new Employee());
     }
 
     /**
@@ -134,10 +124,6 @@ class EmployeeWriterTest extends TestCase
             ->method('validate')
             ->with($dto)
             ->willReturn(new ConstraintViolationList());
-
-        $this->entityFactory->expects($this->once())
-            ->method('create')
-            ->willReturn($entity);
 
         $this->dtoConverter->expects($this->once())
             ->method('convertToEntity')
@@ -157,7 +143,7 @@ class EmployeeWriterTest extends TestCase
         $this->entityManager->expects($this->once())
             ->method('flush');
 
-        $this->writer->createEmployee($dto);
+        $this->writer->persistEmployee($dto, $entity);
     }
 
     /**
@@ -173,10 +159,6 @@ class EmployeeWriterTest extends TestCase
             ->with($dto)
             ->willReturn(new ConstraintViolationList());
 
-        $this->entityFactory->expects($this->once())
-            ->method('create')
-            ->willReturn($entity);
-
         $this->entityManager->expects($this->once())
             ->method('persist')
             ->with($entity)
@@ -190,7 +172,7 @@ class EmployeeWriterTest extends TestCase
                 return $employee->getId() === self::MARKER;
             }), $dto);
 
-        $resultingDto = $this->writer->createEmployee($dto);
+        $resultingDto = $this->writer->persistEmployee($dto, $entity);
 
         $this->assertSame($resultingDto, $dto);
     }

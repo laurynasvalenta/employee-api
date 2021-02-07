@@ -2,17 +2,19 @@
 
 namespace App\Manager;
 
+use App\Entity\Employee as EmployeeEntity;
 use App\Exception\ValidationException;
-use Package\EmployeeDto\Employee;
+use Package\EmployeeDto\Employee as EmployeeDto;
 
 interface EmployeeWriterInterface
 {
     /**
-     * @param Employee $employeeDto
+     * @param EmployeeDto $employeeDto
+     * @param EmployeeEntity $employeeEntity
      *
-     * @return Employee
+     * @return EmployeeDto
      *
      * @throws ValidationException
      */
-    public function createEmployee(Employee $employeeDto): Employee;
+    public function persistEmployee(EmployeeDto $employeeDto, EmployeeEntity $employeeEntity): EmployeeDto;
 }
