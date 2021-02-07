@@ -1,0 +1,4 @@
+Package\EmployeeDto\EmployeeFilter:
+  properties:
+    employeeId:
+      - Uuid: ~

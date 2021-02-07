@@ -1,0 +1,55 @@
+Package\EmployeeDto\Employee:
+  constraints:
+    - App\Validator\Constraint\Boss: ~
+    - App\Validator\Constraint\Role: ~
+    - Expression:
+        expression: "this.getFirstname() !== this.getLastname()"
+        message: "Firstname value cannot match lastname value."
+  properties:
+    id:
+      - Uuid: ~
+    firstname:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 50
+    lastname:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 50
+    birthdate:
+      - NotBlank: ~
+      - LessThanOrEqual: -18 years
+    employmentDate:
+      - NotBlank: ~
+      - LessThanOrEqual: now
+    homeAddressLine1:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 255
+    homeAddressLine2:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 255
+    homeAddressZip:
+      - NotBlank: ~
+      - Length:
+          min: 5
+          max: 5
+    homeAddressCity:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 255
+    homeAddressCountry:
+      - NotBlank: ~
+      - Country:
+          alpha3: true
+    roleName:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 255

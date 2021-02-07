@@ -39,8 +39,10 @@ class EmployeeRepository extends ServiceEntityRepository
 
     /**
      * @param EmployeeFilter $employeeFilter
+     *
+     * @return Employee[]
      */
-    public function findEmployees(EmployeeFilter $employeeFilter)
+    public function findEmployees(EmployeeFilter $employeeFilter): array
     {
         $mapping = [
             'e.id' => $employeeFilter->getEmployeeId(),
