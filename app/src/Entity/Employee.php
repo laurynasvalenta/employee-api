@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\EmployeeRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use SebastianBergmann\GlobalState\RuntimeException;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 /**
@@ -73,6 +72,13 @@ class Employee
      * @ORM\JoinColumn(nullable=false)
      */
     private $role;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted = false;
 
     public function __construct()
     {
@@ -208,5 +214,21 @@ class Employee
     public function setRole(Role $role): void
     {
         $this->role = $role;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     */
+    public function setIsDeleted(bool $isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Converter\Employee;
 
 use App\Entity\Employee as EmployeeEntity;
-use App\Entity\Role;
 use App\Repository\EmployeeRepository;
 use App\Repository\RoleRepository;
 use DateTime;

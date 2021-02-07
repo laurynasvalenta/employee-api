@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Employee;
-use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
@@ -34,7 +33,7 @@ class EmployeeRepository extends ServiceEntityRepository
      */
     public function findEmployeeById(string $id): ?Employee
     {
-        return $this->findOneBy(['id' => $id]);
+        return $this->findOneBy(['id' => $id, 'isDeleted' => false]);
     }
 
     /**
@@ -56,7 +55,8 @@ class EmployeeRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('e')
             ->innerJoin('e.role', 'role')
-            ->leftJoin('e.boss', 'boss');
+            ->leftJoin('e.boss', 'boss')
+            ->where('e.isDeleted = false');
 
         $params = new ArrayCollection();
 

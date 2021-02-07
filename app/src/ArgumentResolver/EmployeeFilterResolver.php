@@ -3,6 +3,7 @@
 namespace App\ArgumentResolver;
 
 use DateTime;
+use Exception;
 use Package\EmployeeDto\EmployeeFilter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,8 +61,11 @@ class EmployeeFilterResolver implements ArgumentValueResolverInterface
 
     /**
      * @param Request $request
-     * @return DateTime|false
-     * @throws \Exception
+     * @param string $key
+     *
+     * @return DateTime|null
+     *
+     * @throws Exception
      */
     protected function getDateTimeObject(Request $request, string $key): ?DateTime
     {
