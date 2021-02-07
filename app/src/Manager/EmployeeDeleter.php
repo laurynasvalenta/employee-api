@@ -48,7 +48,7 @@ class EmployeeDeleter implements EmployeeDeleterInterface
         $employeeEntity = $this->repository->findEmployeeById($employeeId);
 
         if ($employeeEntity === null) {
-            throw new NotFoundException();
+            throw new NotFoundException('Employee not found.');
         }
 
         if ($this->hasAnySubordinates($employeeId)) {

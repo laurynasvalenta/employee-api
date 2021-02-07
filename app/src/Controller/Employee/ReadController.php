@@ -44,7 +44,7 @@ class ReadController
         $employee = $this->reader->findEmployees($employeeFilter)->getFirst();
 
         if ($employee === null) {
-            throw new NotFoundException();
+            throw new NotFoundException('Employee not found.');
         }
 
         return new JsonResponse($this->serializer->serialize($employee, 'json'), Response::HTTP_OK, [], true);
