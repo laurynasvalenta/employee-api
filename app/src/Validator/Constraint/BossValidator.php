@@ -43,7 +43,7 @@ class BossValidator extends ConstraintValidator
             return;
         }
 
-        if (empty($value->getBossId()) === false && $this->bossEmployeeExists($value) === false) {
+        if ($value->getRoleName() !== self::ROLE_CEO && $this->bossEmployeeExists($value) === false) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->addViolation();
@@ -67,6 +67,10 @@ class BossValidator extends ConstraintValidator
      */
     private function bossEmployeeExists(Employee $value): bool
     {
+        if (empty($value)) {
+            return false;
+        }
+
         $filter = new EmployeeFilter();
         $filter->setEmployeeId((string)$value->getBossId());
 

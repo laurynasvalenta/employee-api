@@ -2,10 +2,10 @@
 
 namespace App\ArgumentResolver;
 
+use App\Exception\ParsingException;
 use DateTime;
 use Exception;
 use Package\EmployeeDto\EmployeeFilter;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -51,7 +51,7 @@ class EmployeeFilterResolver implements ArgumentValueResolverInterface
         $violations = $this->validator->validate($employeeFilter);
 
         if ($violations->count() > 0) {
-            throw new BadRequestException();
+            throw new ParsingException('Cannot parse request filters.');
         }
 
         return [

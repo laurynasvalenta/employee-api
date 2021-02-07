@@ -185,6 +185,17 @@ class EmployeeApiTest extends WebTestCase
     }
 
     /**
+     * @test
+     */
+    public function cannotCreateAnEmployeeWithoutABoss(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $bossToCreate = $this->buildFakeEmployee(false);
+        $this->employeeApiClient->createEmployee($bossToCreate);
+    }
+
+    /**
      * @return array
      */
     public function providerListFilteringWorksAsExpected(): array
