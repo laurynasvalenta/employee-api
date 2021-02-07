@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        public: true
+
+    Package\EmployeeApiClientBundle\Handler\MultipleEmployeesResponseHandler:
+        autowire: true
+
+    Package\EmployeeApiClientBundle\Handler\NoEmployeeResponseHandler:
+        autowire: true
+
+    Package\EmployeeApiClientBundle\Handler\SingleEmployeeResponseHandler:
+        autowire: true
+
+    Package\EmployeeApiClientBundle\EmployeeApiClient:
+        autowire: true
+
+    Package\EmployeeApiClientBundle\EmployeeApiClientInterface: '@Package\EmployeeApiClientBundle\EmployeeApiClient'
+
+    Package\EmployeeApiClientBundle\Factory\ClientFactory:
+        arguments:
+            - '%employee_api_client.api_base_url%'
+
+    Package\EmployeeApiClientBundle\Factory\ClientFactoryInterface: '@Package\EmployeeApiClientBundle\Factory\ClientFactory'

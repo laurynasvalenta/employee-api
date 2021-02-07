@@ -1,0 +1,2 @@
+employee_api_client:
+  api_base_url: '%env(resolve:EMPLOYEE_API_BASE_URL)%'

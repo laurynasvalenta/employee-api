@@ -43,7 +43,7 @@ class BossValidator extends ConstraintValidator
             return;
         }
 
-        if ($this->bossEmployeeExists($value) === false) {
+        if (empty($value->getBossId()) === false && $this->bossEmployeeExists($value) === false) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->addViolation();
